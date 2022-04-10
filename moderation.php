@@ -4,7 +4,7 @@ Plugin Name: Moderation
 Plugin URI: http://premium.wpmudev.org/project/moderation
 Description: Moderiere Beiträge, Kommentare und Blogs in Deiner WordPress Mu-Installation
 Author: WMS N@W
-Version: 1.1.0
+Version: 1.1.1
 Author URI: https://n3rds.work
 Network: true
 */
@@ -33,7 +33,7 @@ $MyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 	'ps-moderation' 
 );
 
-$moderation_current_version = '1.1.0';
+$moderation_current_version = '1.1.1';
 //------------------------------------------------------------------------//
 //---Config---------------------------------------------------------------//
 //------------------------------------------------------------------------//
@@ -382,19 +382,19 @@ function moderation_report_link($object_type, $object_id, $link_text = '', $link
         case 'blog':
             $link_text = !empty($link_text)
                 ? __($link_text , 'moderation')
-                : __('Diesen Blog melden' , 'moderation');
+                : __('&#9888; Blog melden' , 'moderation');
             break;
 
         case 'post':
             $link_text = !empty($link_text)
                 ? __($link_text , 'moderation')
-                : __('Diesen Beitrag melden', 'moderation');
+                : __('&#9888; Inhalt melden', 'moderation');
             break;
 
         case 'comment':
             $link_text = !empty($link_text)
                 ? __($link_text , 'moderation')
-                : __('Diesen Kommentar melden', 'moderation');
+                : __('&#9888; Kommentar melden', 'moderation');
             break;
 
         default:
@@ -410,7 +410,7 @@ function moderation_report_link($object_type, $object_id, $link_text = '', $link
         'width'             => 250,
         'height'            => 300,
     ));
-    $link = '<a href="' . $link_url . '" class="thickbox" title="' . $link_text . '">' . $link_text . '</a>';
+    $link = '<a href="' . $link_url . '" class="thickbox" style="color: orangered" title="' . $link_text . '">' . $link_text . '</a>';
 
     // Construct HTML container tag
     $tag = $link_atts['tag'];
@@ -667,14 +667,14 @@ function moderation_report_form($ot, $oi) {
 	$output .= '<input type="hidden" name="object_type" value="' . $ot . '">';
 	$output .= '<input type="hidden" name="object_id" value="' . $oi . '">';
 	$output .= '<input type="hidden" name="moderation_action" value="submit_report">';
-	$output .= '<p>' . __('Grund:', 'moderation') . ' <select name="report_reason">';
+	$output .= '<p>' . __('Grund für die Meldung:', 'moderation') . ' <select name="report_reason">';
 	foreach ( $reasons as $reason ) {
 		$output .= '<option value="' . $reason . '">' . $reason . '</option>';
 	}
 	$output .= '</select></p>';
-	$output .= '<p>' . __('Bemerkungen', 'moderation') . ' (' . __('optional', 'moderation') . '):<br/><textarea name="report_note" style="width:95%;"></textarea></p>';
+	$output .= '<p>' . __('Bemerkungen zur Meldung', 'moderation') . ' (' . __('optional', 'moderation') . '):<br/><textarea name="report_note" style="width:95%;"></textarea></p>';
 	if ( !is_user_logged_in() ) {
-		$output .= '<p>' . __('Email', 'moderation') . ' (' . __('optional', 'moderation') . '):<br /><input type="text" name="report_author_email">';
+		$output .= '<p>' . __('Deine Email', 'moderation') . ' (' . __('optional', 'moderation') . '):<br /><input type="text" name="report_author_email">';
 	}
 	$output .= '<p><input class="button button-primary" type="submit" name="action" value="' . __('Meldung einreichen', 'moderation') . '">';
 	$output .= '</form>';
