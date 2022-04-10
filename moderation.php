@@ -4,7 +4,7 @@ Plugin Name: Moderation
 Plugin URI: http://premium.wpmudev.org/project/moderation
 Description: Moderiere Beiträge, Kommentare und Blogs in Deiner WordPress Mu-Installation
 Author: WMS N@W
-Version: 1.0.9
+Version: 1.1.0
 Author URI: https://n3rds.work
 Network: true
 */
@@ -33,7 +33,7 @@ $MyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 	'ps-moderation' 
 );
 
-$moderation_current_version = '1.0.9';
+$moderation_current_version = '1.1.0';
 //------------------------------------------------------------------------//
 //---Config---------------------------------------------------------------//
 //------------------------------------------------------------------------//
