@@ -10,7 +10,7 @@ Network: true
 */
 
 /*
-Copyright 2007-2021 WMS N@W (https://n3rds.work)
+Copyright 2007-2022 WMS N@W (https://n3rds.work)
 Author - DerN3rd
 
 This program is free software; you can redistribute it and/or modify
@@ -26,7 +26,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-require 'external/psource-plugin-update/plugin-update-checker.php';
+require 'psource/psource-plugin-update/psource-plugin-updater.php';
 $MyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 	'https://n3rds.work//wp-update-server/?action=get_metadata&slug=ps-moderation', 
 	__FILE__, 
@@ -313,7 +313,7 @@ function moderation_init() {
 	if ( !is_multisite() )
 		exit( 'Das Moderations-Plugin ist nur mit WordPress Multisite kompatibel.' );
 
-	wp_register_script('moderation', plugins_url('moderation/js/moderation.js'), array('thickbox'), $moderation_current_version);
+	wp_register_script('moderation', plugins_url('ps-moderation/js/moderation.js'), array('thickbox'), $moderation_current_version);
 
 	load_plugin_textdomain('moderation', false, dirname(plugin_basename(__FILE__)).'/languages');
 
@@ -637,7 +637,7 @@ function moderation_site_admin_options() {
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><?php _e('Entfernen Hinweis', 'moderation') ?></th>
+				<th scope="row"><?php _e('Moderations-Hinweis', 'moderation') ?></th>
 				<td>
 					<textarea name="moderation_remove_notes" id="moderation_remove_notes" cols='40' rows='5' style="width: 95%;"><?php echo $moderation_remove_notes == '' ? '' : @implode( "\n", $moderation_remove_notes ); ?></textarea>
 					<br />
@@ -1142,7 +1142,7 @@ function moderation_posts() {
 							echo "<option value='remove_post'>" . __('Beitrag entfernen', 'moderation') . "</option>";
 					echo "</select>";
 					echo "<br /><br />";
-					echo "<strong>" . __('Hinweis entfernen', 'moderation') . "</strong>:<br />";
+					echo "<strong>" . __('Moderations-Hinweis', 'moderation') . "</strong>:<br />";
 					echo "<select name='remove_notes[" . $report['report_ID'] . "-" . $report['report_blog_ID'] . "-" . $report['report_object_ID'] . "]' style='width:200px;'>";
 						$remove_notes = get_site_option('moderation_remove_notes', array('Warnung: AGB verletzt - Weitere Verstöße können dazu führen, dass Dein Konto entfernt wird','Warnung: AUP verletzt - Weitere Verstöße können dazu führen, dass Dein Konto entfernt wird'));
 						foreach ( $remove_notes as $remove_note ) {
@@ -1207,7 +1207,7 @@ function moderation_posts() {
 			}
 		echo "
 		<SCRIPT LANGUAGE='JavaScript'>
-		window.location='admin.php?page=moderation-posts&updated=true&updatedmsg=" . urlencode(__('Verarbeitete Meldungen.', 'moderation')) . "';
+		window.location='admin.php?page=moderation-posts&updated=true&updatedmsg=" . urlencode(__('Meldungen verarbeitet.', 'moderation')) . "';
 		</script>
 		";
 		break;
@@ -1370,7 +1370,7 @@ function moderation_blogs() {
 			}
 		echo "
 		<SCRIPT LANGUAGE='JavaScript'>
-		window.location='admin.php?page=moderation-blogs&updated=true&updatedmsg=" . urlencode(__('Verarbeitete Meldungen.', 'moderation')) . "';
+		window.location='admin.php?page=moderation-blogs&updated=true&updatedmsg=" . urlencode(__('Meldungen verarbeitet.', 'moderation')) . "';
 		</script>
 		";
 		break;
@@ -1519,7 +1519,7 @@ function moderation_comments() {
 							echo "<option value='remove_comment'>" . __('Kommentar entfernen', 'moderation') . "</option>";
 					echo "</select>";
 					echo "<br /><br />";
-					echo "<strong>" . __('Entfernen Hinweis', 'moderation') . "</strong>:<br />";
+					echo "<strong>" . __('Moderations-Hinweis', 'moderation') . "</strong>:<br />";
 					echo "<select name='remove_notes[" . $report['report_ID'] . "-" . $report['report_blog_ID'] . "-" . $report['report_object_ID'] . "]' style='width:200px;'>";
 						$remove_notes = get_site_option('moderation_remove_notes', array('Warnung: AGB verletzt - Weitere Verstöße können dazu führen, dass Dein Konto entfernt wird','Warnung: AUP verletzt - Weitere Verstöße können dazu führen, dass Dein Konto entfernt wird'));
 						foreach ( $remove_notes as $remove_note ) {
@@ -1534,7 +1534,7 @@ function moderation_comments() {
 				?>
 				</tbody></table>
 				<p class="submit">
-				<input class="button button-primary" type="submit" name="Submit" value="<?php _e('Verarbeitete Meldungen', 'moderation') ?>" />
+				<input class="button button-primary" type="submit" name="Submit" value="<?php _e('Meldungen verarbeitet', 'moderation') ?>" />
 				</p>
 				</form>
 				<?php
@@ -1596,7 +1596,7 @@ function moderation_comments() {
 			}
 		echo "
 		<SCRIPT LANGUAGE='JavaScript'>
-		window.location='admin.php?page=moderation-comments&updated=true&updatedmsg=" . urlencode(__('Verarbeitete Meldungen.', 'moderation')) . "';
+		window.location='admin.php?page=moderation-comments&updated=true&updatedmsg=" . urlencode(__('Meldungen verarbeitet.', 'moderation')) . "';
 		</script>
 		";
 		break;
