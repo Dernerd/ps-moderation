@@ -303,10 +303,6 @@ function moderation_site_admin_options_process() {
 	}
 }
 
-function moderation_print_scripts() {
-	wp_enqueue_script('moderation');
-}
-
 function moderation_init() {
 	global $wpdb, $moderation_current_version;
 
@@ -342,6 +338,10 @@ function moderation_init() {
 
 	}
 
+}
+
+function moderation_print_scripts() {
+	wp_enqueue_script('moderation');
 }
 
 function moderation_process_submission() {
